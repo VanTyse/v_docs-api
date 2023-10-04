@@ -84,5 +84,5 @@ io.on("connection", (socket) => {
 //start server and define port to listen on
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
-  console.log("server connected to port 3001");
+  console.log(`server connected to port ${PORT}`);
 });
