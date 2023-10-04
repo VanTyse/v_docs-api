@@ -11,7 +11,7 @@ const server = createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "https://vantyse-docs.netlify.app",
+    origin: ["https://vantyse-docs.netlify.app", "http://localhost:3000"],
     methods: ["GET", "POST"],
   },
 });
