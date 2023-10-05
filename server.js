@@ -36,6 +36,14 @@ app.use(express.json());
 app.use("/api/v1/auth/", authRoutes);
 app.use("/api/v1/users/", userRoutes);
 app.use("/api/v1/documents/", documentRoutes);
+app.use((err, req, res, next) => {
+  console.log(err);
+  if (err.statusCode) {
+    return res.status(err.statusCode).json({ message: err.message });
+  } else {
+    return res.status(500).json({ message: err.message });
+  }
+});
 
 //function to find or create new document in db
 const findOrCreateDocument = async (documentID, userID, documentName) => {
