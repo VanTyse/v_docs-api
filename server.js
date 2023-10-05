@@ -2,6 +2,7 @@
 require("express-async-errors");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 //creating the express server using http.createServer
 const { createServer } = require("http");
@@ -10,11 +11,10 @@ const server = createServer(app);
 //adding socket.io to the already created server
 const { Server } = require("socket.io");
 const io = new Server(server, {
-  // cors: {
-  //   // origin: ["https://vantyse-docs.netlify.app", "http://localhost:3000"],
-  //   origin: "http://localhost:3000",
-  //   methods: ["GET", "POST"],
-  // },
+  cors: {
+    origin: "http://localhost:3003",
+    methods: ["GET", "POST"],
+  },
 });
 
 //other initializations
@@ -33,6 +33,11 @@ mongoose
   })
   .then(console.log("DB connected successfully"));
 
+app.use(
+  cors({
+    origin: ["https://vantyse-docs.netlify.app", "http://localhost:3000"],
+  })
+);
 app.use(express.json());
 app.use("/api/v1/auth/", authRoutes);
 app.use("/api/v1/users/", userRoutes);
